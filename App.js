@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -25,25 +25,23 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
-class App extends React.Component {
-  state = {
-    year: 2016,
-    name: 'Nader Dabit',
-    colors: ['blue']
-  }
-
- 
-
-  render() {
-    return (
-      < View >
-        <Text>My name is : {this.state.name}</Text>
-        <Text>The Year is : {this.state.year}</Text>
-        <Text>My colors are : {this.state.colors[0]}</Text>
-      </View >
+class App extends Component{
+  render(){
+    let book = 'React Native in Action'
+    return(
+      <BookDisplay book = { book }/>
     )
   }
 }
+class BookDisplay extends Component{
+ render(){
+   return(
+     <View>
+       <Text>{ this.props.book }</Text>
+     </View>
+   )
+ } 
+}
+
 
 export default App;
