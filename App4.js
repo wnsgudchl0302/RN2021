@@ -25,33 +25,28 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-class MainComponent extends Component {
-  constructor() {
-    super()
-    this.state = { loading: true, data: {} }
+export default class App extends Component {
+  state = {
+    userLoggedIn: false
   }
-  componentDidMount() {
-      //#simulateajax call
-    setTimeout(() => {
-      this.setState({
-        loading: false,
-        data: {name: 'Nader Dabit', age: 35}
-      })
-    }, 2000)
-  }
-  
-  render() {
-    if(this.state.loading) {
-      return <Text>Loading</Text>
+  static getDerivedStateFromProps(nextProps, nextState) {
+    if (nextProps.authenticated) {
+      return {
+        userLoggedIn: false
+      }
     }
-    const { name, age } = this.state.data
+    return null
+  }
+  render() {
     return (
       <View>
-        <Text>Name: {name}</Text>
-        <Text>Age: {age}</Text>
+        {
+          this.state.userLoggedIn && (
+            <AuthenticatedComponent />
+          )
+        }
       </View>
     );
   }
-  
 }
-export default MainComponent;
+

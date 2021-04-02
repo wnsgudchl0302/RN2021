@@ -26,32 +26,30 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 class MainComponent extends Component {
-  constructor() {
-    super()
-    this.state = { loading: true, data: {} }
-  }
-  componentDidMount() {
-      //#simulateajax call
-    setTimeout(() => {
-      this.setState({
-        loading: false,
-        data: {name: 'Nader Dabit', age: 35}
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.showToggled === this.state.showToggled) {
+         this.setState({
+        showToggled: !showToggled
       })
-    }, 2000)
-  }
-  
-  render() {
-    if(this.state.loading) {
-      return <Text>Loading</Text>
     }
-    const { name, age } = this.state.data
-    return (
-      <View>
-        <Text>Name: {name}</Text>
-        <Text>Age: {age}</Text>
-      </View>
-    );
   }
-  
+  render() {
+    return <SomeComponent />
+  }
 }
+class MainComponent1 extends Component { 
+   
+  handleClick() {
+     this._timeout = setTimeout(() => {
+       this.openWidget();
+     }, 2000);
+   }
+   componentWillUnmount() {
+     clearTimeout(this._timeout); 
+   }
+   render() {
+     return <SomeComponent 
+              handleClick={() => this.handleClick()} />
+   }
+} 
 export default MainComponent;
